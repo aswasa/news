@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход</title>
+</head>
+<body>
+<form method="post">
+      {% csrf_token %}
+        <input type="text" name="username" placeholder="Логин" class="form-control w-25 mx-auto">
+        <br>
+        <input type="password" name="password" placeholder="Пароль" class="form-control w-25 mx-auto">
+        <br>
+        <button type="submit" class="btn btn-primary btn-lg">Войти</button>
+    </form>
+</body>
+</html>

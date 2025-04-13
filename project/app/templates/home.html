@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Сайт новостей</title>
+</head>
+<body>
+  <main>
+    <h1>Добро пожаловать на сайт новостей!</h1>
+    <h2><p>Выберите категорию, чтобы посмотреть новости по ней.</p></h2>
+  </main>
+  <header>
+    <nav>
+      <ul>
+        <h3>Категории</h3>
+        {% for c in categories %}
+        <li><h3><a href="/category/{{c.id}}">{{ c }}</a></h3></li>
+          <br>
+          {% endfor %}
+          <hr>
+          <h3>Новости</h3>
+          {% for n in news %}
+        <li><h3><a href="/news/{{n.id}}">{{ n }}</a></h3></li>
+          <br>
+          {% endfor %}
+      </ul>
+    </nav>
+    <form>
+      {% csrf_token %}
+      {% if user.is_authenticated %}
+      <button><a href="/logout">Выйти</a></button>
+      {% else %}
+      <button><a href = "/register">Регистрация</a></button>
+      <h4>Уже есть аккаунт? <a href="/accounts/login/">Войти</a></h4>
+      {% endif %}
+    </form>
+  </header>
+</body>
+</html>
