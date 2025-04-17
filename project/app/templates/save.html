@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Избранные</title>
+</head>
+<body>
+{% for s in user_saves %}
+<li>
+    <h3>
+        <a href="/news/{{ s.user_saves.id }}">{{ s.user_saves.main }}</a>
+        <form action="/delete/{{ s.user_saves.id }}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Удалить</button>
+        </form>
+    </h3>
+</li><br>
+{% endfor %}
+</body>
+</html>

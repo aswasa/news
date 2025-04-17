@@ -17,3 +17,17 @@ class News(models.Model):
     def __str__(self):
         return self.main
 
+class Saves(models.Model):
+    user_id = models.IntegerField()
+    user_saves = models.ForeignKey(News, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('user_id', 'user_saves')
+
+    def __str__(self):
+        return f"Пользователь {self.user_id} сохранил новость {self.user_saves.main}"
+
+
+
+
+

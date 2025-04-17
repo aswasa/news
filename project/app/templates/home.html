@@ -29,6 +29,7 @@
       {% csrf_token %}
       {% if user.is_authenticated %}
       <button><a href="/logout">Выйти</a></button>
+      <button><a href="/my_saves">Избранные</a></button>
       {% else %}
       <button><a href = "/register">Регистрация</a></button>
       <h4>Уже есть аккаунт? <a href="/accounts/login/">Войти</a></h4>

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import NewsCategory, News
+from .models import NewsCategory, News, Saves
 from .forms import RegForm
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
@@ -28,8 +28,9 @@ def category_page(request, pk):
 
 def news_page(request, pk):
     news=News.objects.get(id=pk)
+    user_saves = Saves.objects.filter(user_id=request.user.id)
 
-    context={'news': news}
+    context={'news': news, 'user_saves': user_saves}
 
     return render(request, 'news.html', context)
 
@@ -63,5 +64,36 @@ class Register(View):
 def logout_view(request):
     logout(request)
     return redirect('/')
+
+
+
+def save(request, pk):
+    if request.method == 'POST':
+        news_item = News.objects.get(id=pk)
+        existing_save = Saves.objects.filter(user_id=request.user.id, user_saves=news_item).first()
+
+        if existing_save:
+            existing_save.delete()
+        else:
+            Saves.objects.create(user_id=request.user.id, user_saves=news_item)
+        return redirect('/')
+
+
+
+def my_saves(request):
+    user_saves = Saves.objects.filter(user_id=request.user.id)
+    context = {'user_saves': user_saves}
+    return render(request, 'save.html', context)
+
+def delete_saves(request, pk):
+    news_item = News.objects.get(id=pk)
+    existing_save = Saves.objects.filter(user_id=request.user.id, user_saves=news_item).first()
+    if existing_save:
+        existing_save.delete()
+
+    return redirect('/my_saves')
+
+
+
 
 

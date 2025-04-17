@@ -9,11 +9,19 @@
 <br>
 <h2>Категория: {{ news.category }}</h2>
 <br>
-<h2>Дата публикации: {{ news.daten}}</h2>
+<h2>Дата публикации: {{ news.daten }}</h2>
 <br>
 <h3>{{ news.text }}</h3>
 <br>
+{% if user.is_authenticated %}
+<form action="/save/{{ news.id }}" method="post">
+    {% csrf_token %}
+    <button type="submit">⭐</button>
+</form>
 <br>
 <a href="/">На главную</a>
+{% else %}
+<a href="/">На главную</a>
+{% endif %}
 </body>
 </html>
